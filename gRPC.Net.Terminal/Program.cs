@@ -15,7 +15,7 @@ namespace gRPC.Net.Terminal
         {
             await _priceContext.Database.EnsureCreatedAsync();
 
-            await _basePriceService.ChangeBasePrice(1, 50.3);
+            await _basePriceService.ChangeBasePrice(1, 50);
             
             Console.ReadKey();
         }

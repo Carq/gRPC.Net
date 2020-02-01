@@ -6,7 +6,7 @@ namespace gRPC.Net.Terminal.ConsoleHelper
     {
         public static void WriteGreenLine(string text)
         {
-            using (new ConsoleColor(System.ConsoleColor.DarkGreen))
+            using (new ConsoleColor(System.ConsoleColor.Green))
             {
                 Console.WriteLine(text);
             }
@@ -14,7 +14,7 @@ namespace gRPC.Net.Terminal.ConsoleHelper
 
         public static void WriteBlueLine(string text)
         {
-            using (new ConsoleColor(System.ConsoleColor.DarkBlue))
+            using (new ConsoleColor(System.ConsoleColor.Blue))
             {
                 Console.WriteLine(text);
             }

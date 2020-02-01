@@ -20,7 +20,7 @@ namespace gRPC.Net.Terminal.Services
             foreach (var customerId in Customers.Ids)
             {
                 var customerPrice = newPrice - (Customers.Promotion[customerId] * newPrice);
-                HappyConsole.WriteBlueLine($"Customer {customerId} has new price {customerPrice.ToString("C2")} for Product {productId}");
+                HappyConsole.WriteBlueLine($"Customer {customerId} has new price {customerPrice.ToString("C2")} (before promotion {newPrice.ToString("C2")}) for Product {productId}");
                 newCustomerPrices.Add(new CustomerPrice(customerId, productId, customerPrice, DateTime.Now));
             }
 
