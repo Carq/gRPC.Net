@@ -1,4 +1,5 @@
-﻿using gRPC.Net.Terminal.Entities;
+﻿using gRPC.Net.Terminal.ConsoleHelper;
+using gRPC.Net.Terminal.Entities;
 using gRPC.Net.Terminal.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -19,7 +20,7 @@ namespace gRPC.Net.Terminal.Services
             var basePrice = await GetBasePrice(productId);
             
             basePrice.ChangePrice(newPrice);
-            _logger.LogInformation($"Product {productId} has new Price {newPrice.ToString("C2")}");
+            HappyConsole.WriteGreenLine($"Product {productId} has new Price {newPrice.ToString("C2")}");
 
             await _priceContext.SaveChangesAsync();
 
