@@ -3,6 +3,7 @@ using gRPC.Net.Terminal.Helpers;
 using gRPC.Net.Terminal.Services;
 using gRPC.Net.Terminal.Storage;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,21 +19,52 @@ namespace gRPC.Net.Terminal
         {
             await InitializeDatabase();
 
-            using (var stoper = new Stoper())
+            DisplayMenu();
+
+            var key = Console.ReadKey().Key;
+            while (key != ConsoleKey.Escape)
             {
-                var customerPrices = await _customerPriceService.GetCustomersPrices();
-
-                HappyConsole.WriteDarkGreenLine("CustomerId == ProductId == Price");
-                HappyConsole.WriteDarkGreenLine("================================");
-                foreach (var customerPrice in customerPrices)
+                Console.WriteLine();
+                var task = key switch
                 {
-                    HappyConsole.WriteGreenLine($"{customerPrice.CustomerId} {customerPrice.ProductId,13} {customerPrice.Price.ToString("C2"),17}");
-                }
+                    ConsoleKey.D1 => GetCustomerPrices(),
+                    ConsoleKey.D5 => Task.Run(() => DisplayMenu()),
+                    _ => Task.CompletedTask,
+                };
 
-                HappyConsole.WriteDarkGreenLine("================================");
+                await task;
+                key = Console.ReadKey().Key;
+            }
+        }
+
+        private static async Task GetCustomerPrices()
+        {
+            var customerPrices = await _customerPriceService.GetCustomersPrices();
+
+            DisplayCustomerPrices(customerPrices);
+
+            Console.WriteLine();
+        }
+
+        private static void DisplayCustomerPrices(IList<CustomerPrice> customerPrices)
+        {
+            HappyConsole.WriteDarkGreenLine("CustomerId == ProductId == Price == Active");
+            HappyConsole.WriteDarkGreenLine("==========================================");
+            foreach (var customerPrice in customerPrices)
+            {
+                HappyConsole.WriteGreenLine($"{customerPrice.CustomerId,2} {customerPrice.ProductId,13} {customerPrice.Price.ToString("C2"),17} {(customerPrice.IsActive ? "A" : ""),3}");
             }
 
-            Console.ReadKey();
+            HappyConsole.WriteDarkGreenLine("==========================================");
+        }
+
+        private static void DisplayMenu()
+        {
+            Console.Clear();
+            HappyConsole.WriteGrayLine("=== Menu:");
+            HappyConsole.WriteGrayLine("= 1 - GetCustomersPrices()");
+            HappyConsole.WriteGrayLine("= 5 - Clear terminal");
+            HappyConsole.WriteGrayLine("== Esc - Exit");
         }
 
         static async Task InitializeDatabase()

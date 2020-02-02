@@ -19,7 +19,7 @@ namespace gRPC.Net.Terminal.Services
                 foreach (var baseProductPrice in productPrices)
                 {
                     var calculatedPrice = await CalculateCustomerPrice(customerId, baseProductPrice.Price);
-                    var customerPrice = new CustomerPrice(customerId, baseProductPrice.ProductId, calculatedPrice);
+                    var customerPrice = new CustomerPrice(customerId, baseProductPrice.ProductId, calculatedPrice, baseProductPrice.IsActive);
                     newCustomerPrices.Add(customerPrice);
                 }
             }

@@ -17,16 +17,12 @@ namespace gRPC.Net.Terminal.Services
         {
             var productPrices = await _priceContext.ProductPrices.ToListAsync();
 
-            var activeProductPrices = new List<ProductPrice>();
             foreach (var singleProductPrice in productPrices)
             {
-                if (await _externalProductApi.IsProductActive(singleProductPrice.ProductId))
-                {
-                    activeProductPrices.Add(singleProductPrice);
-                }
+                singleProductPrice.IsActive = await _externalProductApi.IsProductActive(singleProductPrice.ProductId);
             }
 
-            return activeProductPrices;
+            return productPrices;
         }
     }
 }

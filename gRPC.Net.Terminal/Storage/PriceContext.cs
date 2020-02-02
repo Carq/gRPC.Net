@@ -16,6 +16,7 @@ namespace gRPC.Net.Terminal.Storage
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductPrice>().ToTable("ProductPrices");
+            modelBuilder.Entity<ProductPrice>().Ignore(x => x.IsActive);
         }
     }
 }

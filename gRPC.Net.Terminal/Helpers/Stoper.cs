@@ -9,14 +9,14 @@ namespace gRPC.Net.Terminal.Helpers
 
         public Stoper()
         {
-            HappyConsole.WriteGrayLine($"In progress...");
+            HappyConsole.WriteDarkGrayLine($"In progress...");
             _watch = Stopwatch.StartNew();
         }
 
         public void Dispose()
         {
             _watch.Stop();
-            HappyConsole.WriteGrayLine($"Done: {_watch.ElapsedMilliseconds}ms - {_watch.ElapsedMilliseconds / 1000.0m:0.##} s");
+            HappyConsole.WriteDarkGrayLine($"Done: {_watch.ElapsedMilliseconds}ms - {_watch.ElapsedMilliseconds / 1000.0m:0.##} s");
         }
     }
 }

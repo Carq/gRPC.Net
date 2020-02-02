@@ -12,9 +12,6 @@
 
         public int ProductId { get; private set; }
 
-        public void ChangePrice(double newPrice)
-        {
-            Price = newPrice;
-        }
+        public bool IsActive { get; set; }
     }
 }
