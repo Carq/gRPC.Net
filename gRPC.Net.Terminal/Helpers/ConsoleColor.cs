@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace gRPC.Net.Terminal.ConsoleHelper
+namespace gRPC.Net.Terminal.Helpers
 {
     public class ConsoleColor : IDisposable
     {

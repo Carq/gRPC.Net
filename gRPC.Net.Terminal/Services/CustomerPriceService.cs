@@ -1,8 +1,4 @@
-﻿using gRPC.Net.Terminal.ConsoleHelper;
-using gRPC.Net.Terminal.Entities;
-using gRPC.Net.Terminal.Storage;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using gRPC.Net.Terminal.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,21 +6,31 @@ namespace gRPC.Net.Terminal.Services
 {
     public class CustomerPriceService
     {
-        private readonly PriceContext _priceContext = new PriceContext();
+        private readonly ProductPriceService _productPriceService = new ProductPriceService();
 
-        private readonly ILogger _logger = LoggerFactory.Create(x => x.AddConsole()).CreateLogger<CustomerPriceService>();
-
-        public async Task ChangeCustomerPricesForSpecificProduct(int productId, double newPrice)
+        public async Task<IList<CustomerPrice>> GetCustomersPrices()
         {
+            var productPrices = await _productPriceService.GetProductBasePrices();
+
             var newCustomerPrices = new List<CustomerPrice>();
+
             foreach (var customerId in Customers.Ids)
             {
-                var customerPrice = newPrice - (Customers.Promotion[customerId] * newPrice);
-                HappyConsole.WriteBlueLine($"Customer {customerId} has new price {customerPrice.ToString("C2")} (before promotion {newPrice.ToString("C2")}) for Product {productId}");
-                newCustomerPrices.Add(new CustomerPrice(customerId, productId, customerPrice, DateTime.Now));
+                foreach (var baseProductPrice in productPrices)
+                {
+                    var calculatedPrice = await CalculateCustomerPrice(customerId, baseProductPrice.Price);
+                    var customerPrice = new CustomerPrice(customerId, baseProductPrice.ProductId, calculatedPrice);
+                    newCustomerPrices.Add(customerPrice);
+                }
             }
 
-            await _priceContext.AddRangeAsync(newCustomerPrices);
+            return newCustomerPrices;
+        }
+
+        private async Task<double> CalculateCustomerPrice(int customerId, double newPrice)
+        {
+            await Task.Delay(50);
+            return newPrice - (Customers.Promotion[customerId] * newPrice);
         }
     }
 }

@@ -1,13 +1,12 @@
 ﻿using gRPC.Net.Terminal.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace gRPC.Net.Terminal.Storage
 {
     public class PriceContext : DbContext
     {
-        public DbSet<BasePrice> BasePrices { get; set; }
-
-        public DbSet<CustomerPrice> CustomerPrices { get; set; }
+        public DbSet<ProductPrice> ProductPrices { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -16,8 +15,7 @@ namespace gRPC.Net.Terminal.Storage
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BasePrice>().ToTable("BasePrices");
-            modelBuilder.Entity<CustomerPrice>().ToTable("CustomerPrices");
+            modelBuilder.Entity<ProductPrice>().ToTable("ProductPrices");
         }
     }
 }

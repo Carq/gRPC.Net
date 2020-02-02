@@ -1,8 +1,8 @@
 ﻿namespace gRPC.Net.Terminal.Entities
 {
-    public class BasePrice : BaseEntity
+    public class ProductPrice : BaseEntity
     {
-        public BasePrice(double price, int productId)
+        public ProductPrice(double price, int productId)
         {
             Price = price;
             ProductId = productId;
