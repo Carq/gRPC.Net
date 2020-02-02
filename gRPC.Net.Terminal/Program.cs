@@ -70,7 +70,7 @@ namespace gRPC.Net.Terminal
             return Task.CompletedTask;
         }
 
-        private static async  Task GetProductBasePricesRx()
+        private static async Task GetProductBasePricesRx()
         {
             var productService = new ProductPriceService();
 
