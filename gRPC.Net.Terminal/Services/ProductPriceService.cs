@@ -2,7 +2,10 @@
 using gRPC.Net.Terminal.ExternalService;
 using gRPC.Net.Terminal.Storage;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace gRPC.Net.Terminal.Services
@@ -23,6 +26,22 @@ namespace gRPC.Net.Terminal.Services
             }
 
             return productPrices;
+        }
+
+        public IObservable<ProductPrice> GetProductBasePricesRx()
+        {
+            var productPrices = _priceContext.ProductPrices.ToList();
+
+            return Observable.Create<ProductPrice>(async observer =>
+            {
+                foreach (var singleProductPrice in productPrices)
+                {
+                    singleProductPrice.IsActive = await _externalProductApi.IsProductActive(singleProductPrice.ProductId);
+                    observer.OnNext(singleProductPrice);
+                }
+
+                observer.OnCompleted();
+            });
         }
     }
 }

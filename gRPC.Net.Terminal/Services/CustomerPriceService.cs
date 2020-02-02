@@ -1,5 +1,7 @@
 ﻿using gRPC.Net.Terminal.Entities;
+using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace gRPC.Net.Terminal.Services
@@ -26,6 +28,27 @@ namespace gRPC.Net.Terminal.Services
 
             return newCustomerPrices;
         }
+
+        public IObservable<CustomerPrice> GetCustomersPricesRx()
+        {
+            return _productPriceService
+                .GetProductBasePricesRx()
+                .Select(x => CreateCustomersPricesRx(x))
+                .Merge();
+        }
+
+        public IObservable<CustomerPrice> CreateCustomersPricesRx(ProductPrice productPrice)
+        {
+            return Observable.Create<CustomerPrice>(async observer =>
+            {
+                foreach (var customerId in Customers.Ids)
+                {
+                    var calculatedPrice = await CalculateCustomerPrice(customerId, productPrice.Price);
+                    observer.OnNext(new CustomerPrice(customerId, productPrice.ProductId, calculatedPrice, productPrice.IsActive));
+                }
+            });
+        }
+
 
         private async Task<double> CalculateCustomerPrice(int customerId, double newPrice)
         {
