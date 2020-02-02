@@ -8,6 +8,8 @@ import "google/protobuf/empty.proto";
 
 service ProductPriceServicesGrpc {
   rpc GetProductBasePrices (google.protobuf.Empty) returns (ProductBaseReply);
+
+  rpc GetProductBasePricesRx (google.protobuf.Empty) returns (stream Product);
 }
 
 message ProductBaseReply {
