@@ -28,6 +28,9 @@ namespace gRPC.Net.Terminal
                 var task = key switch
                 {
                     ConsoleKey.D1 => GetCustomerPrices(),
+                    ConsoleKey.D2 => GetCustomerPricesRx(),
+                    ConsoleKey.D3 => GetProductBasePrice(),
+                    ConsoleKey.D4 => GetProductBasePricesRx(),
                     ConsoleKey.D5 => Task.Run(() => DisplayMenu()),
                     _ => Task.CompletedTask,
                 };
@@ -39,22 +42,64 @@ namespace gRPC.Net.Terminal
 
         private static async Task GetCustomerPrices()
         {
-            var customerPrices = await _customerPriceService.GetCustomersPrices();
+            using (var stoper = new Stoper())
+            {
+                var customerPrices = await _customerPriceService.GetCustomersPrices();
 
-            DisplayCustomerPrices(customerPrices);
+                DisplayCustomerPrices(customerPrices);
+            }
 
             Console.WriteLine();
         }
 
+        private static Task GetCustomerPricesRx()
+        {
+            return Task.CompletedTask;
+        }
+
+        private static async Task GetProductBasePrice()
+        {
+            var productService = new ProductPriceService();
+
+            using (var stoper = new Stoper())
+            {
+                var productPrices = await productService.GetProductBasePrices();
+                foreach (var item in productPrices)
+                {
+                    HappyConsole.WriteBlueLine($"{item.ProductId,2} - {item.Price,5} - {item.IsActive}");
+                }
+            }
+        }
+
+        private static Task GetProductBasePricesRx()
+        {
+            return Task.CompletedTask;
+        }
+
         private static void DisplayCustomerPrices(IList<CustomerPrice> customerPrices)
         {
-            HappyConsole.WriteDarkGreenLine("CustomerId == ProductId == Price == Active");
-            HappyConsole.WriteDarkGreenLine("==========================================");
+            DisplayCustomerPricesHeader();
             foreach (var customerPrice in customerPrices)
             {
-                HappyConsole.WriteGreenLine($"{customerPrice.CustomerId,2} {customerPrice.ProductId,13} {customerPrice.Price.ToString("C2"),17} {(customerPrice.IsActive ? "A" : ""),3}");
+                DisplaySingleCustomerPrice(customerPrice);
             }
 
+            DisplayCustomerPricesFooter();
+        }
+
+        private static void DisplayCustomerPricesFooter()
+        {
+            HappyConsole.WriteDarkGreenLine("==========================================");
+        }
+
+        private static void DisplaySingleCustomerPrice(CustomerPrice customerPrice)
+        {
+            HappyConsole.WriteGreenLine($"{customerPrice.CustomerId,2} {customerPrice.ProductId,13} {customerPrice.Price.ToString("C2"),17} {(customerPrice.IsActive ? "A" : ""),3}");
+        }
+
+        private static void DisplayCustomerPricesHeader()
+        {
+            HappyConsole.WriteDarkGreenLine("CustomerId == ProductId == Price == Active");
             HappyConsole.WriteDarkGreenLine("==========================================");
         }
 
@@ -63,6 +108,9 @@ namespace gRPC.Net.Terminal
             Console.Clear();
             HappyConsole.WriteDarkYellowLine("=== Menu:");
             HappyConsole.WriteDarkYellowLine("= 1 - GetCustomersPrices()");
+            HappyConsole.WriteDarkYellowLine("= 2 - GetCustomersPricesRx()");
+            HappyConsole.WriteDarkYellowLine("= 3 - GetProductBasePrices()");
+            HappyConsole.WriteDarkYellowLine("= 4 - GetProductBasePricesRx()");
             HappyConsole.WriteDarkYellowLine("= 5 - Clear terminal");
             HappyConsole.WriteDarkYellowLine("== Esc - Exit");
         }
