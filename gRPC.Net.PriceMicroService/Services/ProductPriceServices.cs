@@ -2,6 +2,7 @@
 using gRPC.Net.PriceMicroService.ExternalService;
 using gRPC.Net.PriceMicroService.Storage;
 using Grpc.Core;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace gRPC.Net.PriceMicroService.Services
@@ -12,9 +13,23 @@ namespace gRPC.Net.PriceMicroService.Services
 
         private readonly PriceContext _priceContext = new PriceContext();
 
-        public override Task<ProductBaseReply> GetProductBasePrices(Empty request, ServerCallContext context)
+        public override async Task<ProductBaseReply> GetProductBasePrices(Empty request, ServerCallContext context)
         {
-            return Task.FromResult(new ProductBaseReply());
+            var productPrices = await _priceContext.ProductPrices.ToListAsync();
+            var res = new ProductBaseReply();
+
+            foreach (var singleProductPrice in productPrices)
+            {
+                singleProductPrice.IsActive = await _externalProductApi.IsProductActive(singleProductPrice.ProductId);
+                res.ProductPrices.Add(new Product()
+                {
+                    Price = singleProductPrice.Price,
+                    IsActive = singleProductPrice.IsActive,
+                    ProductId = singleProductPrice.ProductId,
+                });
+            }
+
+            return res;
         }
     }
 }
