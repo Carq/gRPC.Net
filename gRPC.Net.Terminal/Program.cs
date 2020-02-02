@@ -61,10 +61,10 @@ namespace gRPC.Net.Terminal
         private static void DisplayMenu()
         {
             Console.Clear();
-            HappyConsole.WriteGrayLine("=== Menu:");
-            HappyConsole.WriteGrayLine("= 1 - GetCustomersPrices()");
-            HappyConsole.WriteGrayLine("= 5 - Clear terminal");
-            HappyConsole.WriteGrayLine("== Esc - Exit");
+            HappyConsole.WriteDarkYellowLine("=== Menu:");
+            HappyConsole.WriteDarkYellowLine("= 1 - GetCustomersPrices()");
+            HappyConsole.WriteDarkYellowLine("= 5 - Clear terminal");
+            HappyConsole.WriteDarkYellowLine("== Esc - Exit");
         }
 
         static async Task InitializeDatabase()

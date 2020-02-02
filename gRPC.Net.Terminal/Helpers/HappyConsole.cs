@@ -28,9 +28,25 @@ namespace gRPC.Net.Terminal.Helpers
             }
         }
 
-        public static void WriteGrayLine(string text)
+        public static void WriteDarkYellowLine(string text)
         {
             using (new ConsoleColor(System.ConsoleColor.DarkYellow))
+            {
+                Console.WriteLine(text);
+            }
+        }
+
+        public static void WriteBlueLine(string text)
+        {
+            using (new ConsoleColor(System.ConsoleColor.Blue))
+            {
+                Console.WriteLine(text);
+            }
+        }
+
+        public static void WriteCyanLine(string text)
+        {
+            using (new ConsoleColor(System.ConsoleColor.Cyan))
             {
                 Console.WriteLine(text);
             }
