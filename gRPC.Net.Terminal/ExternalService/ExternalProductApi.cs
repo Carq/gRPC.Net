@@ -14,7 +14,7 @@ namespace gRPC.Net.Terminal.ExternalService
 
         public async Task<bool> IsProductActive(int productId)
         {
-            await Task.Delay(100);
+            await Task.Delay(150);
             return !InactiveProducts.Contains(productId);
         }
     }

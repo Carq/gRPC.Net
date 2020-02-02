@@ -18,16 +18,19 @@ namespace gRPC.Net.Terminal
         {
             await InitializeDatabase();
 
-            var customerPrices = await _customerPriceService.GetCustomersPrices();
-
-            HappyConsole.WriteDarkGreenLine("CustomerId == ProductId == Price");
-            HappyConsole.WriteDarkGreenLine("================================");
-            foreach (var customerPrice in customerPrices)
+            using (var stoper = new Stoper())
             {
-                HappyConsole.WriteGreenLine($"{customerPrice.CustomerId} {customerPrice.ProductId, 13} {customerPrice.Price.ToString("C2"), 17}");
-            }
+                var customerPrices = await _customerPriceService.GetCustomersPrices();
 
-            HappyConsole.WriteDarkGreenLine("================================");
+                HappyConsole.WriteDarkGreenLine("CustomerId == ProductId == Price");
+                HappyConsole.WriteDarkGreenLine("================================");
+                foreach (var customerPrice in customerPrices)
+                {
+                    HappyConsole.WriteGreenLine($"{customerPrice.CustomerId} {customerPrice.ProductId,13} {customerPrice.Price.ToString("C2"),17}");
+                }
+
+                HappyConsole.WriteDarkGreenLine("================================");
+            }
 
             Console.ReadKey();
         }

@@ -29,7 +29,7 @@ namespace gRPC.Net.Terminal.Services
 
         private async Task<double> CalculateCustomerPrice(int customerId, double newPrice)
         {
-            await Task.Delay(50);
+            await Task.Delay(100);
             return newPrice - (Customers.Promotion[customerId] * newPrice);
         }
     }
