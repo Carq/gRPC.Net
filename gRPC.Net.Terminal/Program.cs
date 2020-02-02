@@ -30,7 +30,8 @@ namespace gRPC.Net.Terminal
                 {
                     ConsoleKey.D1 => GetCustomerPrices(),
                     ConsoleKey.D2 => GetCustomerPricesRx(),
-                    ConsoleKey.D3 => GetProductBasePricesRx(),
+                    ConsoleKey.D3 => GetProductBasePrice(),
+                    ConsoleKey.D4 => GetProductBasePricesRx(),
                     ConsoleKey.D5 => Task.Run(() => DisplayMenu()),
                     _ => Task.CompletedTask,
                 };
@@ -56,7 +57,7 @@ namespace gRPC.Net.Terminal
         {
             var stoper = new Stoper();
             DisplayCustomerPricesHeader();
-            
+
             _customerPriceService
                 .GetCustomersPricesRx()
                 .Subscribe(
@@ -70,7 +71,7 @@ namespace gRPC.Net.Terminal
             return Task.CompletedTask;
         }
 
-        private static async Task GetProductBasePricesRx()
+        private static async Task GetProductBasePrice()
         {
             var productService = new ProductPriceService();
 
@@ -82,14 +83,20 @@ namespace gRPC.Net.Terminal
                     HappyConsole.WriteBlueLine($"{item.ProductId,2} - {item.Price,5} - {item.IsActive}");
                 }
             }
+        }
+
+        private static Task GetProductBasePricesRx()
+        {
+            var productService = new ProductPriceService();
 
             var stoperRx = new Stoper();
             productService
                 .GetProductBasePricesRx()
-                .Where(x => x.IsActive)
                 .Subscribe(
                 x => HappyConsole.WriteCyanLine($"{x.ProductId,2} - {x.Price,5} - {x.IsActive}"),
                 () => stoperRx.Dispose());
+
+            return Task.CompletedTask;
         }
 
         private static void DisplayCustomerPrices(IList<CustomerPrice> customerPrices)
@@ -125,7 +132,8 @@ namespace gRPC.Net.Terminal
             HappyConsole.WriteDarkYellowLine("=== Menu:");
             HappyConsole.WriteDarkYellowLine("= 1 - GetCustomersPrices()");
             HappyConsole.WriteDarkYellowLine("= 2 - GetCustomersPricesRx()");
-            HappyConsole.WriteDarkYellowLine("= 3 - GetProductBasePricesRx()");
+            HappyConsole.WriteDarkYellowLine("= 3 - GetProductBasePrices()");
+            HappyConsole.WriteDarkYellowLine("= 4 - GetProductBasePricesRx()");
             HappyConsole.WriteDarkYellowLine("= 5 - Clear terminal");
             HappyConsole.WriteDarkYellowLine("== Esc - Exit");
         }

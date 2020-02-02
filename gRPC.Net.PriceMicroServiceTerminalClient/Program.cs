@@ -47,11 +47,6 @@ namespace gRPC.Net.PriceMicroServiceTerminalClient
             }
         }
 
-        private static void DisplayProduct(Product item)
-        {
-            HappyConsole.WriteBlueLine($"{item.ProductId,2} - {item.Price,5} - {item.IsActive}");
-        }
-
         private static async Task GetCustomerPricesRx()
         {
             using (var stope = new Stoper())
@@ -64,6 +59,11 @@ namespace gRPC.Net.PriceMicroServiceTerminalClient
                     }
                 }
             }
+        }
+
+        private static void DisplayProduct(Product item)
+        {
+            HappyConsole.WriteBlueLine($"{item.ProductId,2} - {item.Price,5} - {item.IsActive}");
         }
 
         private static void DisplayMenu()
