@@ -64,15 +64,20 @@ namespace gRPC.Net.Terminal
             using (var stoper = new Stoper())
             {
                 var productPrices = await productService.GetProductBasePrices();
+                HappyConsole.WriteBlueLine($"Id --- Price --- Active");
                 foreach (var item in productPrices)
                 {
-                    HappyConsole.WriteBlueLine($"{item.ProductId,2} - {item.Price,5} - {item.IsActive}");
+                    HappyConsole.WriteBlueLine($"{item.ProductId,2} - {item.Price.ToString("C"),9} - {(item.IsActive ? "A" : "")}");
                 }
             }
         }
 
         private static Task GetProductBasePricesRx()
         {
+            var productService = new ProductPriceService();
+
+            HappyConsole.WriteBlueLine($"Id - Price - Active");
+
             return Task.CompletedTask;
         }
 
