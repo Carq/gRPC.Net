@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "gRPC.Net.PriceMicroService";
+
+package priceMicro;
+
+import "google/protobuf/empty.proto";
+
+service ProductPriceServicesGrpc {
+  rpc GetProductBasePrices (google.protobuf.Empty) returns (ProductBaseReply);
+
+  rpc GetProductBasePricesRx (google.protobuf.Empty) returns (stream Product);
+}
+
+message ProductBaseReply {
+  repeated Product productPrices = 1;
+}
+
+message Product {
+  int32 productId = 1;
+  double price = 2;
+  bool  isActive = 3;
+}

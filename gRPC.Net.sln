@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.Net.BookingModule", "gRPC.Net.BookingModule\gRPC.Net.BookingModule.csproj", "{A088528C-7FB3-4E0A-B915-B5039E0221EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.Net.Terminal", "gRPC.Net.Terminal\gRPC.Net.Terminal.csproj", "{6E3D70ED-DBE4-405B-9EC7-1F135A6E6CAD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.Net.DynamicPricing", "gRPC.Net.DynamicPricing\gRPC.Net.DynamicPricing.csproj", "{EA615E08-D6B3-4067-90B7-504DF5F6B4E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.Net.PriceMicroService", "gRPC.Net.PriceMicroService\gRPC.Net.PriceMicroService.csproj", "{B5936F2E-157D-43F4-88AA-F3E57F6981D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.Net.DynamicsPricing.Console", "gRPC.Net.DynamicsPricing.Console\gRPC.Net.DynamicsPricing.Console.csproj", "{849B5804-2543-4FF2-8CDA-43D599EACF97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.Net.PriceMicroServiceTerminalClient", "gRPC.Net.PriceMicroServiceTerminalClient\gRPC.Net.PriceMicroServiceTerminalClient.csproj", "{7CEA6234-7237-45A3-88D0-25EFEAB3A3DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A088528C-7FB3-4E0A-B915-B5039E0221EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A088528C-7FB3-4E0A-B915-B5039E0221EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A088528C-7FB3-4E0A-B915-B5039E0221EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A088528C-7FB3-4E0A-B915-B5039E0221EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA615E08-D6B3-4067-90B7-504DF5F6B4E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA615E08-D6B3-4067-90B7-504DF5F6B4E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA615E08-D6B3-4067-90B7-504DF5F6B4E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA615E08-D6B3-4067-90B7-504DF5F6B4E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{849B5804-2543-4FF2-8CDA-43D599EACF97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{849B5804-2543-4FF2-8CDA-43D599EACF97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{849B5804-2543-4FF2-8CDA-43D599EACF97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{849B5804-2543-4FF2-8CDA-43D599EACF97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E3D70ED-DBE4-405B-9EC7-1F135A6E6CAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E3D70ED-DBE4-405B-9EC7-1F135A6E6CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E3D70ED-DBE4-405B-9EC7-1F135A6E6CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E3D70ED-DBE4-405B-9EC7-1F135A6E6CAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5936F2E-157D-43F4-88AA-F3E57F6981D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5936F2E-157D-43F4-88AA-F3E57F6981D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5936F2E-157D-43F4-88AA-F3E57F6981D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5936F2E-157D-43F4-88AA-F3E57F6981D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CEA6234-7237-45A3-88D0-25EFEAB3A3DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CEA6234-7237-45A3-88D0-25EFEAB3A3DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CEA6234-7237-45A3-88D0-25EFEAB3A3DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CEA6234-7237-45A3-88D0-25EFEAB3A3DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
